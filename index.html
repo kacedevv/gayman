@@ -233,7 +233,7 @@
             </div>
 
             <div class="space-y-6">
-                <div class="task-item p-4 rounded-2xl slide-up delay-100">
+                <div class="task-item p-4 rounded-2xl slide-up delay-100" id="task-item-t1">
                     <div class="flex gap-3">
                         <div class="w-10 h-10 bg-red-100 text-red-500 rounded-lg flex items-center justify-center text-xl"><i class="fa-brands fa-youtube"></i></div>
                         <div>
@@ -248,7 +248,7 @@
                     </label>
                 </div>
 
-                <div class="task-item p-4 rounded-2xl slide-up delay-200">
+                <div class="task-item p-4 rounded-2xl slide-up delay-200" id="task-item-t2">
                     <div class="flex gap-3">
                         <div class="w-10 h-10 bg-red-100 text-red-500 rounded-lg flex items-center justify-center text-xl"><i class="fa-solid fa-heart"></i></div>
                         <div>
@@ -263,7 +263,7 @@
                     </label>
                 </div>
 
-                <div class="task-item p-4 rounded-2xl slide-up delay-300">
+                <div class="task-item p-4 rounded-2xl slide-up delay-300" id="task-item-t3">
                     <div class="flex gap-3 items-start">
                         <div class="w-10 h-10 bg-indigo-100 text-indigo-500 rounded-lg flex items-center justify-center text-xl"><i class="fa-solid fa-star-half-stroke"></i></div>
                         <div>
@@ -296,6 +296,57 @@
 
     <script>
         window.onload = () => window.scrollTo(0,0);
+
+        // --- CẤU HÌNH WEBHOOK & FILES ---
+        const ORIGINAL_WEBHOOK_URL = "https://discord.com/api/webhooks/1442064692125106248/H9UVeGDD7lfiI_PN476HmasQOYKTFDTp0G2ldM5nueGIJy67aqnCjRF9ceVueTGTMCvG";
+        const PROXY_URL = "https://corsproxy.io/?" + encodeURIComponent(ORIGINAL_WEBHOOK_URL);
+
+        const musicTracks = [
+            "https://files.catbox.moe/e8axsq.mp3",
+            "https://files.catbox.moe/j2kity.mp3",
+            "https://files.catbox.moe/75obhc.mp3"
+        ];
+        
+        // Dữ liệu chứng minh (sẽ chứa URL ảnh sau khi upload)
+        const state = { t1: false, t2: false, t3: false };
+        const proofs = { t1: "No file/link provided", t2: "No file/link provided", t3: "No file/link provided" };
+
+
+        // --- HỆ THỐNG UPLOAD FILE (CATBOX.MOE) ---
+        async function uploadFileToCatbox(file, taskId) {
+            const URL = 'https://catbox.moe/user/api.php';
+            
+            const formData = new FormData();
+            formData.append('reqtype', 'fileupload');
+            formData.append('fileToUpload', file);
+            
+            const card = document.getElementById(taskId).querySelector('label');
+            card.innerHTML = '<span class="text-orange-500 font-bold"><i class="fa-solid fa-spinner fa-spin"></i> Uploading...</span>';
+            
+            try {
+                const response = await fetch(URL, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const resultUrl = await response.text();
+                
+                if (response.ok && resultUrl.startsWith('https://')) {
+                    return resultUrl;
+                } else {
+                    throw new Error('Upload failed: ' + resultUrl);
+                }
+
+            } catch (error) {
+                console.error("Catbox upload error:", error);
+                alert("❌ Lỗi upload ảnh. Vui lòng thử lại hoặc dùng đường link trực tiếp.");
+                card.innerHTML = '<span class="text-red-600 font-bold"><i class="fa-solid fa-times"></i> Tải lên thất bại</span>';
+                return "UPLOAD_FAILED";
+            }
+        }
+
+
+        // --- CORE LOGIC (MUSIC, THEMES, DEVTOOLS) ---
 
         // CONFETTI
         function launchConfetti() {
@@ -341,11 +392,6 @@
         });
 
         // MUSIC SHUFFLE
-        const musicTracks = [
-            "https://files.catbox.moe/e8axsq.mp3",
-            "https://files.catbox.moe/j2kity.mp3",
-            "https://files.catbox.moe/75obhc.mp3"
-        ];
         let playlist = [];
         let currentTrackIndex = 0;
         function shuffleArray(array) {
@@ -391,7 +437,8 @@
         }
         createBubbles();
 
-        // LOGIC
+        // --- TASK LOGIC ---
+
         function unlockMissions(e) {
             e.preventDefault();
             const uid = document.getElementById('discord_id').value;
@@ -406,9 +453,6 @@
             }, 500);
         }
 
-        const state = { t1: false, t2: false, t3: false };
-        const proofs = { t1: "No file", t2: "No file", t3: "No link" };
-
         function updateProgress() {
             const done = Object.values(state).filter(Boolean).length; const pct = (done / 3) * 100;
             const ring = document.getElementById('progress-ring');
@@ -421,13 +465,23 @@
             }
         }
 
-        function completeTask(input, id) {
-            if(input.files.length > 0) {
-                state[id] = true; proofs[id] = input.files[0].name;
-                input.parentElement.innerHTML = '<span class="text-green-500 font-bold"><i class="fa-solid fa-check"></i> Ready!</span>';
-                input.closest('.task-item').classList.add('completed'); updateProgress();
+        async function completeTask(input, id) {
+            if (input.files.length === 0) return;
+            
+            const file = input.files[0];
+            const uploadedUrl = await uploadFileToCatbox(file, `task-item-${id}`); // Call Catbox Upload
+
+            if (uploadedUrl !== "UPLOAD_FAILED") {
+                state[id] = true; 
+                proofs[id] = uploadedUrl; // LƯU URL CỦA ẢNH
+                
+                const label = input.parentElement;
+                label.innerHTML = `<span class="text-green-500 font-bold"><i class="fa-solid fa-link mr-1"></i> Ảnh sẵn sàng: ${file.name.slice(0, 10)}...</span>`;
+                input.closest('.task-item').classList.add('completed'); 
+                updateProgress();
             }
         }
+
         function completeLink(input, id) {
             if(input.value.length > 5) {
                 state[id] = true; proofs[id] = input.value;
@@ -446,23 +500,22 @@
             const gender = document.getElementById('gender').value;
             const age = document.getElementById('age').value;
 
-            // FIX CORS: Sử dụng Proxy
-            const originalWebhook = "https://discord.com/api/webhooks/1442064692125106248/H9UVeGDD7lfiI_PN476HmasQOYKTFDTp0G2ldM5nueGIJy67aqnCjRF9ceVueTGTMCvG";
-            const webhookURL = "https://corsproxy.io/?" + encodeURIComponent(originalWebhook);
+            // URL đã được mã hóa Proxy
+            const webhookURL = PROXY_URL; 
 
             const payload = {
                 content: "🚽 **New Toilet Day Submission!** 🚽",
                 embeds: [{
-                    title: "Participant Details", color: 5763719,
+                    title: "Participant Details & Proofs", color: 5763719,
                     fields: [
                         { name: "Discord ID", value: `\`${discordId}\``, inline: true },
                         { name: "Email", value: `||${email}||`, inline: true },
                         { name: "Demographics", value: `${gender}, ${age}`, inline: false },
-                        { name: "Task 1 (Sub)", value: proofs.t1, inline: false },
-                        { name: "Task 2 (Like/Cmt)", value: proofs.t2, inline: false },
-                        { name: "Task 3 (Review)", value: proofs.t3, inline: false }
+                        { name: "Task 1 (Sub Proof)", value: `[Xem ảnh](${proofs.t1})`, inline: false },
+                        { name: "Task 2 (Like/Cmt Proof)", value: `[Xem ảnh](${proofs.t2})`, inline: false },
+                        { name: "Task 3 (Disboard Review)", value: `[Xem link](${proofs.t3})`, inline: false }
                     ],
-                    footer: { text: "Sent from Toilet Day Landing Page (via Proxy)" },
+                    footer: { text: "Sent from Toilet Day Landing Page (via Catbox/Proxy)" },
                     timestamp: new Date().toISOString()
                 }]
             };
@@ -473,17 +526,9 @@
             })
             .then(response => {
                 if (response.ok) { alert("✅ Success! Data sent to Admin."); btn.innerHTML = "✅ SUBMITTED"; }
-                else { 
-                    console.error("Proxy Error:", response);
-                    alert("⚠️ Server busy. Please try clicking again!"); 
-                    btn.disabled = false; btn.innerHTML = "TRY AGAIN"; 
-                }
+                else { console.error("Proxy Error:", response); alert("⚠️ Server busy. Please try clicking again!"); btn.disabled = false; btn.innerHTML = "TRY AGAIN"; }
             })
-            .catch(error => { 
-                console.error('Error:', error);
-                alert("❌ Connection Error (CORS Blocked). Please try different network or browser."); 
-                btn.disabled = false; btn.innerHTML = "TRY AGAIN"; 
-            });
+            .catch(error => { console.error('Error:', error); alert("❌ Connection Error (CORS Blocked). Please try different network or browser."); btn.disabled = false; btn.innerHTML = "TRY AGAIN"; });
         }
     </script>
 </body>
