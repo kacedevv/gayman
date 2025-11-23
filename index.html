@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>19/11 International Toilet Day - ImageKit Upload</title>
+    <title>19/11 International Toilet Day - Final Stable</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     
     <script>
         tailwind.config = {
@@ -28,7 +27,6 @@
         body::-webkit-scrollbar { display: none; } body { -ms-overflow-style: none; scrollbar-width: none; }
         input, select, textarea { font-size: 16px !important; }
         
-        /* UI Components */
         .bg-grid { background-size: 40px 40px; background-image: linear-gradient(to right, rgba(59, 130, 246, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(59, 130, 246, 0.05) 1px, transparent 1px); position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none; }
         .bg-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; overflow: hidden; }
         .fixed-bar { z-index: 50; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
@@ -37,13 +35,9 @@
         .task-item { background: rgba(255, 255, 255, 0.6); border: 2px solid rgba(255, 255, 255, 0.5); transition: all 0.3s; }
         .task-item.completed { background: #f0fdf4; border-color: #4ade80; transform: scale(1.02); }
         .btn-magic { background: linear-gradient(135deg, #3b82f6, #6366f1); box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4); position: relative; overflow: hidden; }
-        .btn-magic:active { transform: scale(0.95); }
         .reward-logo { fill: var(--primary); transition: fill 1s ease; }
         .shine-layer { position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.6), transparent); transform: skewX(-25deg); animation: shine 3s infinite; pointer-events: none; }
-        
-        /* Animation Classes */
-        .slide-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
-        .delay-100 { animation-delay: 100ms; } .delay-200 { animation-delay: 200ms; } .delay-300 { animation-delay: 300ms; }
+        .slide-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; } .delay-100 { animation-delay: 100ms; } .delay-200 { animation-delay: 200ms; } .delay-300 { animation-delay: 300ms; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .click-ripple { position: absolute; border-radius: 50%; background: rgba(59, 130, 246, 0.3); transform: translate(-50%, -50%) scale(0); pointer-events: none; animation: ripple 0.5s linear; z-index: 9999; }
         @keyframes ripple { to { transform: translate(-50%, -50%) scale(4); opacity: 0; } }
@@ -53,7 +47,7 @@
 </head>
 <body>
     <canvas id="confetti-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 99;"></canvas>
-
+    
     <div id="warning-modal" class="fixed inset-0 bg-slate-900/95 z-[100] hidden flex items-center justify-center p-6">
         <div class="bg-white rounded-3xl p-8 w-full max-w-sm text-center shadow-2xl border-4 border-red-500 animate-[bounce_0.5s]">
             <div class="text-6xl mb-4">🔞</div>
@@ -97,191 +91,105 @@
                 </div>
                 <div class="glass-card p-4 rounded-2xl flex flex-col items-center text-center relative">
                     <div class="shine-layer" style="animation-delay: 1.5s;"></div>
-                    <svg class="w-10 h-10 mb-2 svg-icon" viewBox="0 0 24 24"><path d="M22.2819 9.82116C22.1837 9.10626 21.8529 8.43215 21.3269 7.8807C20.8009 7.32924 20.1067 6.93241 19.3269 6.72516C18.5471 6.5179 17.7149 6.50976 16.9319 6.70116C16.1489 6.89256 15.4469 7.27416 14.8919 7.80116L13.4019 9.21116L13.1619 8.98116C12.6076 8.45389 11.9073 8.07136 11.1267 7.88016C10.3461 7.68897 9.51727 7.69736 8.74003 7.90416C7.96279 8.11097 7.27042 8.50726 6.74598 9.05716C6.22154 9.60706 5.89049 10.2796 5.79193 10.9912C5.47463 13.0335 5.15733 15.0758 4.84193 17.1181C4.82493 17.2198 4.83573 17.324 4.87313 17.4194C4.91053 17.5148 4.97333 17.598 5.05493 17.6603C5.13653 17.7227 5.23393 17.7618 5.33673 17.7737C5.43953 17.7856 5.54393 17.7698 5.63993 17.7281C7.75693 16.7781 9.87293 15.8281 11.9899 14.8781C12.1118 14.8268 12.2151 14.7448 12.2897 14.6401C12.3643 14.5355 12.4077 14.4116 12.4155 14.2805C12.4232 14.1495 12.3949 14.016 12.3334 13.8932C12.2718 13.7704 12.1792 13.6625 12.0649 13.5801C9.94893 12.0301 7.83293 10.4801 5.71693 8.93016C5.71693 8.93016 5.71693 8.93016 5.71693 8.93016C5.71693 8.93016 5.71693 8.93016 5.71693 8.93016C5.71693 8.93016 5.71693 8.93016 5.71693 8.93016C5.71693 8.93016 5.71693 8.93016 5.71693 8.93016C5.81524 8.21909 6.14607 7.54512 6.67041 6.99454C7.19475 6.44395 7.88731 6.04769 8.66448 5.84147C9.44166 5.63525 10.2705 5.62746 11.0508 5.81892C11.8312 6.01039 12.5313 6.39289 13.0859 6.92016L14.5759 8.33016C15.1308 8.85723 15.8315 9.23921 16.6121 9.43027C17.3927 9.62133 18.2218 9.61332 18.9991 9.40708C19.7763 9.20084 20.4687 8.80485 20.9927 8.25467C21.5168 7.7045 21.8472 7.03107 21.9449 6.32016C21.8467 5.60909 21.5158 4.93512 20.9915 4.38454C20.4672 3.83395 19.7746 3.43769 18.9974 3.23147C18.2202 3.02525 17.3914 3.01746 16.6111 3.20892C15.8308 3.40039 15.1306 3.78289 14.5759 4.31016L13.0859 5.72016C12.5311 6.24723 11.8304 6.62921 11.0498 6.82027C10.2692 7.01133 9.44009 7.00332 8.66283 6.79708C7.88557 6.59084 7.19321 6.19485 6.66917 5.64467C6.14513 5.0945 5.81468 4.42107 5.71693 3.71016V1.61016C5.71693 1.48153 5.68015 1.35557 5.60997 1.24653C5.53978 1.13748 5.43972 1.05021 5.32165 0.994668C5.20358 0.939123 5.07259 0.917937 4.94471 0.933676C4.81683 0.949415 4.69753 0.999064 4.60193 1.08016C3.0276 2.41368 1.45327 3.74721 0.12093 5.08016C0.0305372 5.15871 -0.0264949 5.26855 -0.0427055 5.38942C-0.058916 5.51029 -0.0330906 5.63359 0.03093 5.73916C0.0949506 5.84473 0.192621 5.92483 0.305425 5.96372C0.418228 6.00261 0.537873 6.00168 0.64593 5.96116C2.42536 5.3015 4.20479 4.64184 5.98422 3.98218C5.91296 4.66195 6.0011 5.34912 6.23972 5.97611C6.47833 6.60311 6.85921 7.14867 7.34523 7.55933C7.83126 7.97 8.40633 8.23156 9.01422 8.3185C9.62211 8.40544 10.2419 8.31478 10.8132 8.05533L12.3032 7.38533C12.8763 7.12549 13.4983 7.03469 14.1084 7.12202C14.7184 7.20934 15.295 7.47154 15.7813 7.88222C16.2677 8.29289 16.6462 8.83799 16.8801 9.46395C17.114 10.0899 17.1949 10.7747 17.1149 11.4512L16.9049 13.5512C16.8937 13.6667 16.9194 13.7829 16.9784 13.8834C17.0374 13.9839 17.1268 14.0635 17.2339 14.1112C20.1069 15.4022 22.9799 16.6932 25.8529 17.9842C25.9584 18.0315 26.0777 18.0397 26.1883 18.0073C26.299 17.9748 26.3934 17.904 26.4559 17.8082C26.5184 17.7124 26.5448 17.5979 26.5302 17.4835C26.5157 17.3691 26.4612 17.2624 26.3769 17.1812L19.2819 10.3612Z" transform="translate(0 -2.5) scale(0.85)"/></svg>
-                    <h3 class="font-bold text-slate-800 text-xs leading-tight mb-2">ChatGPT Go<br>Account 1Y</h3>
-                    <span class="text-[10px] font-black text-white bg-blue-500 px-2 py-1 rounded-full shadow">X1 WINNER</span>
+                    <svg class="w-10 h-10 mb-2 svg-icon" viewBox="0 0 24 24"><path d="M22.2819 9.82116C22.1837 9.10626 21.8529 8.43215 21.3269 7.8807C20.8009 7.32924 20.1067 6.93241 19.3269 6.72516C18.5471 6.5179 17.7149 6.50976 16.9319 6.70116C16.1489 6.89256 15.4469 7.27416 14.8919 7.80116L13.4019 9.21116L13.1619 8.98116C12.6076 8.45389 11.9073 8.07136 11.1267 7.88016C10.3461 7.68897 9.51727 7.69736 8.74003 7.90416C7.96279 8.11097 7.27042 8.50726 6.74598 9.05716C6.22154 9.60706 5.89049 10.2796 5.79193 10.9912C5.47463 13.0335 5.15733 15.0758 4.84193 17.1181C4.82493 17.2198 4.83573 17.324 4.87313 17.4194C4.91053 17.5148 4.97333 17.598 5.05493 17.6603C5.13653 17.7227 5.23393 17.7618 5.33673 17.7737C5.43953 17.7856 5.54393 17.7698 5.63993 17.7281C7.75693 16.7781 9.87293 15.8281 11.9899 14.8781C12.1118 14.8268 12.2151 14.7448 12.2897 14.6401C12.3643 14.5355 12.4077 14.4116 12.4155 14.2805C12.4232 14.1495 12.3949 14.016 12.3334 13.8932C12.2718 13.7704 12.1792 13.6625 12.0649 13.5801C9.94893 12.0301 7.83293 10.4801 5.71693 8.93016C5.71693 8.93016 5.71693 8.93016C5.71693 8.93016C5.71693 8.93016C5.71693 8.93016C5.71693 8.93016C5.71693 8.93016C5.71693 8.93016C5.71693 8.93016C5.71693 8.93016C5.71693 8.93016C5.71693 8.93016C5.71693 8.93016C5.81524 8.21909 6.14607 7.54512 6.67041 6.99454C7.19475 6.44395 7.88731 6.04769 8.66448 5.84147C9.44166 5.63525 10.2705 5.62746 11.0508 5.81892C11.8312 6.01039 12.5313 6.39289 13.0859 6.92016L14.5759 8.33016C15.1308 8.85723 15.8315 9.23921 16.6121 9.43027C17.3927 9.62133 18.2218 9.61332 18.9991 9.40708C19.7763 9.20084 20.4687 8.80485 20.9927 8.25467C21.5168 7.7045 21.8472 7.03107 21.9449 6.32016C21.8467 5.60909 21.5158 4.93512 20.9915 4.38454C20.4672 3.83395 19.7746 3.43769 18.9974 3.23147C18.2202 3.02525 17.3914 3.01746 16.6111 3.20892C15.8308 3.40039 15.1306 3.78289 14.5759 4.31016L13.0859 5.72016C12.5311 6.24723 11.8304 6.62921 11.0498 6.82027C10.2692 7.01133 9.44009 7.00332 8.66283 6.79708C7.88557 6.59084 7.19321 6.19485 6.66917 5.64467C6.14513 5.0945 5.81468 4.42107 5.71693 3.71016V1.61016C5.71693 1.48153 5.68015 1.35557 5.60997 1.24653C5.53978 1.13748 5.43972 1.05021 5.32165 0.994668C5.20358 0.939123 5.07259 0.917937 4.94471 0.933676C4.81683 0.949415 4.69753 0.999064 4.60193 1.08016C3.0276 2.41368 1.45327 3.74721 0.12093 5.08016C0.0305372 5.15871 -0.0264949 5.26855 -0.0427055 5.38942C-0.058916 5.51029 -0.0330906 5.63359 0.03093 5.73916C0.0949506 5.84473 0.192621 5.92483 0.305425 5.96372C0.418228 6.00261 0.537873 6.00168 0.64593 5.96116C2.42536 5.3015 4.20479 4.64184 5.98422 3.98218C5.91296 4.66195 6.0011 5.34912 6.23972 5.97611C6.47833 6.60311 6.85921 7.14867 7.34523 7.55933C7.83126 7.97 8.40633 8.23156 9.01422 8.3185C9.62211 8.40544 10.2419 8.31478 10.8132 8.05533L12.3032 7.38533C12.8763 7.12549 13.4983 7.03469 14.1084 7.12202C14.7184 7.20934 15.295 7.47154 15.7813 7.88222C16.2677 8.29289 16.6462 8.83799 16.8801 9.46395C17.114 10.0899 17.1949 10.7747 17.1149 11.4512L16.9049 13.5512C16.8937 13.6667 16.9194 13.7829 16.9784 13.8834C17.0374 13.9839 17.1268 14.0635 17.2339 14.1112C20.1069 15.4022 22.9799 16.6932 25.8529 17.9842C25.9584 18.0315 26.0777 18.0397 26.1883 18.0073C26.299 17.9748 26.3934 17.904 26.4559 17.8082C26.5184 17.7124 26.5448 17.5979 26.5302 17.4835C26.5157 17.3691 26.4612 17.2624 26.3769 17.1812L19.2819 10.3612Z" transform="translate(0 -2.5) scale(0.85)"/></svg>
+                    <h3 class="font-bold text-slate-800 text-xs leading-tight mb-2">ChatGPT Go<br>Account 1Y</h3><span class="text-[10px] font-black text-white bg-blue-500 px-2 py-1 rounded-full shadow">X1 WINNER</span>
                 </div>
             </div>
 
             <form onsubmit="unlockMissions(event)" class="glass-card p-5 rounded-3xl shadow-lg slide-up delay-200">
-                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-secondary to-primary animate-shine"></div>
-                <div class="mb-4">
-                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Discord ID *</label>
-                    <input type="text" id="discord_id" required placeholder="username#0000" 
-                        class="w-full p-3 rounded-xl bg-white/50 border border-slate-200 focus:border-blue-500 outline-none font-bold text-slate-700 transition-all focus:shadow-inner">
-                </div>
-                <div class="mb-4">
-                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Email *</label>
-                    <input type="email" id="email" required placeholder="you@email.com" 
-                        class="w-full p-3 rounded-xl bg-white/50 border border-slate-200 focus:border-blue-500 outline-none font-bold text-slate-700 transition-all focus:shadow-inner">
-                </div>
+                <div class="mb-4"><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Discord ID *</label><input type="text" id="discord_id" required placeholder="username#0000" class="w-full p-3 rounded-xl bg-white/50 border border-slate-200 focus:border-blue-500 outline-none font-bold text-slate-700 transition-all focus:shadow-inner"></div>
+                <div class="mb-4"><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Email *</label><input type="email" id="email" required placeholder="you@email.com" class="w-full p-3 rounded-xl bg-white/50 border border-slate-200 focus:border-blue-500 outline-none font-bold text-slate-700 transition-all focus:shadow-inner"></div>
                 <div class="grid grid-cols-2 gap-3 mb-6">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Gender *</label>
-                        <select id="gender" required class="w-full p-3 rounded-xl bg-white/50 border border-slate-200 focus:border-blue-500 outline-none font-bold text-slate-700">
-                            <option value="" disabled selected>Select</option>
-                            <option>Male</option><option>Female</option><option>Other</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Age *</label>
-                        <select id="age" required class="w-full p-3 rounded-xl bg-white/50 border border-slate-200 focus:border-blue-500 outline-none font-bold text-slate-700">
-                            <option value="" disabled selected>Select</option>
-                            <option>13-17</option><option>18-24</option><option>25+</option>
-                        </select>
-                    </div>
+                    <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Gender *</label><select id="gender" required class="w-full p-3 rounded-xl bg-white/50 border border-slate-200 focus:border-blue-500 outline-none font-bold text-slate-700"><option value="" disabled selected>Select</option><option>Male</option><option>Female</option><option>Other</option></select></div>
+                    <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Age *</label><select id="age" required class="w-full p-3 rounded-xl bg-white/50 border border-slate-200 focus:border-blue-500 outline-none font-bold text-slate-700"><option value="" disabled selected>Select</option><option>13-17</option><option>18-24</option><option>25+</option></select></div>
                 </div>
-                <button type="submit" class="w-full btn-magic text-white font-black py-4 rounded-xl shadow-lg flex items-center justify-center gap-2">
-                    <span>START MISSION</span>
-                    <i class="fa-solid fa-rocket"></i>
-                </button>
+                <button type="submit" class="w-full btn-magic text-white font-black py-4 rounded-xl shadow-lg flex items-center justify-center gap-2"><span>START MISSION</span><i class="fa-solid fa-rocket"></i></button>
             </form>
         </div>
 
         <div id="step-tasks" class="hidden opacity-0 transition-opacity duration-500">
-            
             <div class="solid-card p-4 rounded-3xl mb-5 flex items-center justify-between slide-up border border-blue-100">
-                <div>
-                    <h3 class="font-black text-slate-800 text-lg">Your Progress</h3>
-                    <p class="text-xs text-slate-500 font-bold">Flush away the tasks!</p>
-                </div>
-                <div class="relative w-14 h-14">
-                    <svg class="w-full h-full -rotate-90">
-                        <circle cx="28" cy="28" r="24" stroke="#e2e8f0" stroke-width="5" fill="none"></circle>
-                        <circle id="progress-ring" cx="28" cy="28" r="24" stroke="#3b82f6" stroke-width="5" fill="none" stroke-dasharray="150" stroke-dashoffset="150" stroke-linecap="round" class="transition-all duration-1000"></circle>
-                    </svg>
-                    <span id="progress-text" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-xs font-bold text-blue-600">0%</span>
-                </div>
+                <div><h3 class="font-black text-slate-800 text-lg">Your Progress</h3><p class="text-xs text-slate-500 font-bold">Flush away the tasks!</p></div>
+                <div class="relative w-14 h-14"><svg class="w-full h-full -rotate-90"><circle cx="28" cy="28" r="24" stroke="#e2e8f0" stroke-width="5" fill="none"></circle><circle id="progress-ring" cx="28" cy="28" r="24" stroke="#3b82f6" stroke-width="5" fill="none" stroke-dasharray="150" stroke-dashoffset="150" stroke-linecap="round" class="transition-all duration-1000"></circle></svg><span id="progress-text" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-xs font-bold text-blue-600">0%</span></div>
             </div>
 
             <div class="space-y-6">
                 <div class="task-item p-4 rounded-2xl slide-up delay-100" id="task-item-t1">
                     <div class="flex gap-3">
                         <div class="w-10 h-10 bg-red-100 text-red-500 rounded-lg flex items-center justify-center text-xl"><i class="fa-brands fa-youtube"></i></div>
-                        <div>
-                            <h4 class="font-bold text-slate-800">Subscribe</h4>
-                            <a href="https://youtube.com/@kacelord" target="_blank" class="text-xs text-blue-500 font-bold underline">Open Channel</a>
-                        </div>
+                        <div><h4 class="font-bold text-slate-800">Subscribe</h4><a href="https://youtube.com/@kacelord" target="_blank" class="text-xs text-blue-500 font-bold underline">Open Channel</a></div>
                         <i class="status-icon fa-regular fa-circle text-slate-300 text-2xl ml-auto"></i>
                     </div>
-                    <label class="mt-3 block w-full border-2 border-dashed border-slate-300 rounded-xl p-2 text-center cursor-pointer hover:bg-white/50 transition">
-                        <input type="file" onchange="completeTask(this, 't1')" class="hidden">
-                        <span class="text-xs font-bold text-slate-500"><i class="fa-solid fa-upload"></i> Upload Proof</span>
-                    </label>
+                    <label class="mt-3 block w-full border-2 border-dashed border-slate-300 rounded-xl p-2 text-center cursor-pointer hover:bg-white/50 transition"><input type="file" onchange="completeTask(this, 't1')" class="hidden"><span class="text-xs font-bold text-slate-500"><i class="fa-solid fa-upload"></i> Upload Proof</span></label>
                 </div>
 
                 <div class="task-item p-4 rounded-2xl slide-up delay-200" id="task-item-t2">
                     <div class="flex gap-3">
                         <div class="w-10 h-10 bg-red-100 text-red-500 rounded-lg flex items-center justify-center text-xl"><i class="fa-solid fa-heart"></i></div>
-                        <div>
-                            <h4 class="font-bold text-slate-800">Like & Comment</h4>
-                            <a href="https://youtu.be/gua52xHdt90?si=6Hahdbls1GJTyGsP" target="_blank" class="text-xs text-blue-500 font-bold underline">Watch Video</a>
-                        </div>
+                        <div><h4 class="font-bold text-slate-800">Like & Comment</h4><a href="https://youtu.be/gua52xHdt90?si=6Hahdbls1GJTyGsP" target="_blank" class="text-xs text-blue-500 font-bold underline">Watch Video</a></div>
                         <i class="status-icon fa-regular fa-circle text-slate-300 text-2xl ml-auto"></i>
                     </div>
-                    <label class="mt-3 block w-full border-2 border-dashed border-slate-300 rounded-xl p-2 text-center cursor-pointer hover:bg-white/50 transition">
-                        <input type="file" onchange="completeTask(this, 't2')" class="hidden">
-                        <span class="text-xs font-bold text-slate-500"><i class="fa-solid fa-upload"></i> Upload Proof</span>
-                    </label>
+                    <label class="mt-3 block w-full border-2 border-dashed border-slate-300 rounded-xl p-2 text-center cursor-pointer hover:bg-white/50 transition"><input type="file" onchange="completeTask(this, 't2')" class="hidden"><span class="text-xs font-bold text-slate-500"><i class="fa-solid fa-upload"></i> Upload Proof</span></label>
                 </div>
 
                 <div class="task-item p-4 rounded-2xl slide-up delay-300" id="task-item-t3">
                     <div class="flex gap-3 items-start">
                         <div class="w-10 h-10 bg-indigo-100 text-indigo-500 rounded-lg flex items-center justify-center text-xl"><i class="fa-solid fa-star-half-stroke"></i></div>
-                        <div>
-                            <h4 class="font-bold text-slate-800">Rate Disboard</h4>
-                            <a href="https://disboard.org/vi/server/reviews/1315133660080508988" target="_blank" class="mt-1 inline-block text-[10px] bg-indigo-600 text-white px-2 py-1 rounded shadow-sm hover:bg-indigo-700 transition">
-                                Viết Review ➜
-                            </a>
-                        </div>
+                        <div><h4 class="font-bold text-slate-800">Rate Disboard</h4><a href="https://disboard.org/vi/server/reviews/1315133660080508988" target="_blank" class="mt-1 inline-block text-[10px] bg-indigo-600 text-white px-2 py-1 rounded shadow-sm hover:bg-indigo-700 transition">Viết Review ➜</a></div>
                         <i class="status-icon fa-regular fa-circle text-slate-300 text-2xl ml-auto"></i>
                     </div>
                     <input type="url" placeholder="Dán link review tại đây..." onchange="completeLink(this, 't3')" class="mt-3 w-full p-2 text-sm border rounded-lg outline-none focus:border-blue-500 transition-shadow focus:shadow-inner">
                 </div>
             </div>
-
-            <button id="btn-claim" disabled onclick="sendToWebhook()" class="w-full mt-8 btn-magic text-white font-black py-4 rounded-2xl shadow-lg opacity-50 cursor-not-allowed transition-all slide-up">
-                COMPLETE ALL TASKS
-            </button>
+            <button id="btn-claim" disabled onclick="sendToWebhook()" class="w-full mt-8 btn-magic text-white font-black py-4 rounded-2xl shadow-lg opacity-50 cursor-not-allowed transition-all slide-up">COMPLETE ALL TASKS</button>
         </div>
-
     </main>
 
     <footer class="fixed-bar fixed bottom-0 left-0 w-full bg-white/80 border-t border-white/50 h-16 flex justify-between items-center px-6 shadow-[0_-5px_20px_rgba(0,0,0,0.05)]">
-        <div class="bg-white/50 px-3 py-1 rounded-full border border-white text-[10px] font-bold text-slate-500 tracking-widest">
-            Dev by <span class="text-blue-600 font-black">ThanhDam</span> <i class="fa-solid fa-heart text-red-500 animate-pulse"></i>
-        </div>
-        <button onclick="toggleTheme()" class="w-10 h-10 rounded-full btn-magic text-white shadow-md flex items-center justify-center">
-            <i class="fa-solid fa-palette animate-spin-slow"></i>
-        </button>
+        <div class="bg-white/50 px-3 py-1 rounded-full border border-white text-[10px] font-bold text-slate-500 tracking-widest">Dev by <span class="text-blue-600 font-black">ThanhDam</span> <i class="fa-solid fa-heart text-red-500 animate-pulse"></i></div>
+        <button onclick="toggleTheme()" class="w-10 h-10 rounded-full btn-magic text-white shadow-md flex items-center justify-center"><i class="fa-solid fa-palette animate-spin-slow"></i></button>
     </footer>
 
     <script>
         window.onload = () => window.scrollTo(0,0);
 
-        // --- CẤU HÌNH WEBHOOK & FILES ---
+        // --- CẤU HÌNH WEBHOOK ---
         const ORIGINAL_WEBHOOK_URL = "https://discord.com/api/webhooks/1442064692125106248/H9UVeGDD7lfiI_PN476HmasQOYKTFDTp0G2ldM5nueGIJy67aqnCjRF9ceVueTGTMCvG";
         const PROXY_URL = "https://corsproxy.io/?" + encodeURIComponent(ORIGINAL_WEBHOOK_URL);
 
-        // --- CẤU HÌNH IMAGEKIT ---
-        const IMAGEKIT_PUBLIC_KEY = "public_UbYl1R/rIlAawFpUcZYBYNzSWw4="; 
-        const IMAGEKIT_URL_ENDPOINT = "https://ik.imagekit.io/hojysh3jy";
-        const IMAGEKIT_AUTHENTICATION_ENDPOINT = ""; // Chúng ta không dùng cái này vì không có server
+        // --- CẤU HÌNH CLOUDINARY ---
+        const CLOUDINARY_CLOUD_NAME = "dtl7s8nmhg"; 
+        const CLOUDINARY_UPLOAD_PRESET = "unsigned_preset";
 
-        // --- LOGIC UPLOAD IMAGEKIT (Client-Side Signing) ---
-        // **WARNING**: This exposes the Private Key. Only use for short-term events.
-        // PLEASE PASTE YOUR PRIVATE KEY BELOW INSIDE THE QUOTES
-        const IMAGEKIT_PRIVATE_KEY = "private_UzmSCwlnEISbOg+rrHwyC3ifnGA="; // <--- DÁN PRIVATE KEY CỦA BẠN VÀO ĐÂY
-
-        async function uploadToImageKit(file, taskId) {
+        // --- LOGIC UPLOAD CLOUDINARY (Unsigned) ---
+        async function uploadToCloudinary(file, taskId) {
             const card = document.getElementById(taskId).querySelector('label');
             card.innerHTML = '<span class="text-orange-500 font-bold"><i class="fa-solid fa-spinner fa-spin"></i> Uploading...</span>';
 
+            const url = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
             try {
-                // 1. Generate Signature (Mock Server logic in Browser)
-                const expire = Math.floor(Date.now() / 1000) + 2400; // 40 mins from now
-                const token = "uuid-" + Math.random().toString(36).substring(2) + Date.now();
-                const signatureString = `expire=${expire}&fileName=${file.name}&publicKey=${IMAGEKIT_PUBLIC_KEY}&token=${token}`;
-                const signature = CryptoJS.HmacSHA1(signatureString, IMAGEKIT_PRIVATE_KEY).toString();
-
-                // 2. Prepare Form Data
-                const formData = new FormData();
-                formData.append("file", file);
-                formData.append("fileName", file.name);
-                formData.append("publicKey", IMAGEKIT_PUBLIC_KEY);
-                formData.append("signature", signature);
-                formData.append("expire", expire);
-                formData.append("token", token);
-                formData.append("useUniqueFileName", "true");
-
-                // 3. Upload to ImageKit API
-                const response = await fetch("https://upload.imagekit.io/api/v1/files/upload", {
-                    method: "POST",
-                    body: formData
-                });
-
+                const response = await fetch(url, { method: 'POST', body: formData });
                 const data = await response.json();
 
-                if (response.ok && data.url) {
-                    return data.url; // Success! Return the URL
+                if (data.secure_url) {
+                    return data.secure_url;
                 } else {
-                    console.error("ImageKit Error:", data);
-                    throw new Error(data.message || "Upload failed");
+                    throw new Error(data.error.message || "Upload failed");
                 }
-
             } catch (error) {
                 console.error("Upload Error:", error);
-                alert("❌ Upload Error: " + error.message);
+                alert("❌ Lỗi upload: " + error.message);
                 card.innerHTML = '<span class="text-red-600 font-bold"><i class="fa-solid fa-times"></i> Failed</span>';
                 return "UPLOAD_FAILED";
             }
         }
 
-
         // --- CORE LOGIC ---
-        function launchConfetti() { /* ... Confetti code ... */ 
-            const canvas = document.getElementById('confetti-canvas'); const ctx = canvas.getContext('2d'); canvas.width = window.innerWidth; canvas.height = window.innerHeight; const particles = []; const colors = ['#3b82f6', '#6366f1', '#10b981', '#f59e0b', '#ec4899']; for(let i=0; i<100; i++) { particles.push({ x: Math.random()*canvas.width, y: -10, w: Math.random()*10+5, h: Math.random()*10+5, color: colors[Math.floor(Math.random()*colors.length)], vy: Math.random()*3+2, vx: Math.random()*2-1, rot: Math.random()*360 }); } function draw() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach((p, i) => { p.y += p.vy; p.x += p.vx; p.rot += 2; ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot*Math.PI/180); ctx.fillStyle = p.color; ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h); ctx.restore(); if(p.y > canvas.height) particles.splice(i, 1); }); if(particles.length > 0) requestAnimationFrame(draw); } draw();
-        }
+        function launchConfetti() { const canvas = document.getElementById('confetti-canvas'); const ctx = canvas.getContext('2d'); canvas.width = window.innerWidth; canvas.height = window.innerHeight; const particles = []; const colors = ['#3b82f6', '#6366f1', '#10b981', '#f59e0b', '#ec4899']; for(let i=0; i<100; i++) { particles.push({ x: Math.random()*canvas.width, y: -10, w: Math.random()*10+5, h: Math.random()*10+5, color: colors[Math.floor(Math.random()*colors.length)], vy: Math.random()*3+2, vx: Math.random()*2-1, rot: Math.random()*360 }); } function draw() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach((p, i) => { p.y += p.vy; p.x += p.vx; p.rot += 2; ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot*Math.PI/180); ctx.fillStyle = p.color; ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h); ctx.restore(); if(p.y > canvas.height) particles.splice(i, 1); }); if(particles.length > 0) requestAnimationFrame(draw); } draw(); }
         function showWarning() { document.getElementById('warning-modal').classList.remove('hidden'); }
         function closeWarning() { document.getElementById('warning-modal').classList.add('hidden'); }
         document.addEventListener('contextmenu', e => { e.preventDefault(); showWarning(); });
@@ -316,17 +224,14 @@
             if(pct > 99) { btn.disabled = false; btn.classList.remove('opacity-50', 'cursor-not-allowed'); btn.innerHTML = '🎉 CLAIM REWARD NOW'; btn.classList.add('animate-bounce'); }
         }
 
-        // UPDATED: UPLOAD TO IMAGEKIT
         async function completeTask(input, id) {
             if(input.files.length > 0) {
                 const file = input.files[0];
-                // Call ImageKit Upload
-                const uploadedUrl = await uploadToImageKit(file, `task-item-${id}`);
+                const uploadedUrl = await uploadToCloudinary(file, `task-item-${id}`);
                 
                 if(uploadedUrl !== "UPLOAD_FAILED") {
                     state[id] = true; 
-                    proofs[id] = uploadedUrl; // Save ImageKit URL
-                    
+                    proofs[id] = uploadedUrl; 
                     const label = input.parentElement;
                     label.innerHTML = `<span class="text-green-500 font-bold"><i class="fa-solid fa-check-circle mr-1"></i> Uploaded: ${file.name.slice(0,8)}...</span>`;
                     input.closest('.task-item').classList.add('completed'); 
@@ -351,7 +256,7 @@
             const payload = {
                 content: "🚽 **New Toilet Day Submission!** 🚽",
                 embeds: [{
-                    title: "Participant Details", color: 5763719,
+                    title: "Participant Details & Proofs", color: 5763719,
                     fields: [
                         { name: "Discord ID", value: `\`${discordId}\``, inline: true },
                         { name: "Email", value: `||${email}||`, inline: true },
